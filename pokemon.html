@@ -14,22 +14,27 @@
         <img src="{{url_for ('static', filename='logo.jpg')}}"class="rounded mx-auto d-block"alt="logo pokemon">
         <form method ="post">
           <div class="input-group mb-3">
-            <input type="text" id ="nombre" class="form-control" placeholder="ingrese el nombre del Pokemon">
+            <input type="text" id ="name" class="form-control" placeholder="ingrese el nombre del Pokemon">
             <button class="btn btn btn-danger" type="submit" id="button-addon2">buscar</button>
           </div>
         </form>
-      <div class="d-flex justify-content-center">
-        <div class="card" style="width: 18rem;">
-          <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/4.svg" 
-          class="card-img-top" alt="...">
-          <div class="card-body">
-              <h5 class="card-title">Charmander</h5>
-              <p class="card-text">height</p>
-              <p class="card-text">weight</p>
-              <a href="#" class="btn btn-primary">Capturar</a>
-              <a href="#" class="btn btn-primary">Detalle</a>
+        <div class="d-flex justify-content-center">
+
+          {% if pokemon %}
+          <div class="card" style="width: 18rem;">
+            <img src={{pokemon.photo}} 
+            class="card-img-top" alt="...">
+            <div class="card-body">
+                <h5 class="card-title">{{ pokemon.name}}</h5>
+                <p class="card-text">height:{{ pokemon.height}}</p>
+                <p class="card-text">weight: {{ pokemon.weight}}</p>
+                <p class="card-text">order: {{ pokemon.order}}</p>
+                <p class="card-text">type: {{ pokemon.type}}</p>
+                <a href="#" class="btn btn-primary">Capturar</a>
+                <a href="#" class="btn btn-primary">Detalle</a>
+              </div>
             </div>
-          </div>
+          {% endif %}
         </div>
       </div>
         
