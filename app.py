@@ -1,4 +1,5 @@
-from flask import Flask,render_template 
+
+from flask import Flask,render_template, request
 import requests
 
 from flask_sqlalchemy import SQLAlchemy
@@ -30,29 +31,33 @@ def get_pokemon_data(pokemon):
     return r
 
 
-@app.route("/")
+@app.route("/",methods =['GET','POST'])
 def home():
-    data = get_pokemon_data('lucario')
-    pokemon= {
-            'id':data.get('name'),
-              'name':data.get('name'),
-              'height':data.get('height'),
-              'weight':data.get('weight'), 
-              'order': data.get('weight'),
-              'type': 'agua',
-              'photo': data.get('sprites').get('other').get('official-artwork').get('front_default')
-                    }
+    pokemon =None
+    if request.method == 'POST':
+        name_pokemon= request.form.get('nombre')
+        if name_pokemon:
+            data= get_pokemon_data (name_pokemon.lower())
+            pokemon= {
+                    'id':data.get('ide'),
+                    'name':data.get('name').upper(),
+                    'height':data.get('height'),
+                    'weight':data.get('weight'), 
+                    'order': data.get('weight'),
+                    'type': 'agua',
+                    'photo': data.get('sprites').get('other').get('official-artwork').get('front_default')
+                            }
     return render_template('pokemon.html', pokemon=pokemon)
 
 
 
-@app.route('/insert')
-def new_pokemon():
-    new_pokemon = 'pikachu'
+@app.route('/insert_pokemon/<pokemon>')
+def insert_pokemon(pokemon):
+    new_pokemon = pokemon
     if new_pokemon:
-          obj = pokemon(name= new_pokemon, height=1.50,weight= 60, order=100,type= 'electrico' ) 
-          db.session.add(obj)
-          db.session.commit()
+        obj = pokemon(pokemon ) 
+        db.session.add(obj)
+        db.session.commit()
     return 'Pokemon Agregado'
 
 
