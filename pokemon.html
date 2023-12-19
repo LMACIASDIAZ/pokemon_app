@@ -32,14 +32,13 @@
                 <p class="card-text">Order:{{pokemon.order}}</p>
                 <p class="card-text">Type:{{pokemon.type}}</p>
                 <a href="#" class="btn btn-primary">capturar</a>
-                <a href="{{ url_for('detalles', id=pokemon.id)}}" class="btn btn-primary">Detalles</a>
+                <a href="{{ url_for('detalle', id=pokemon.id)}}" class="btn btn-primary">Detalle</a>
             </div>
         </div>
         {%endif%}
     </div>
 </div>
 
-
+                
 </body>
 </html>
-        
